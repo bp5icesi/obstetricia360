@@ -859,5 +859,934 @@ li { margin-bottom: 7px; }
 
   </div>
 
-  <div class="calculator" id="herrera">
-    <
+<div class="calculator" id="herrera">
+  
+    <div class="section-number">Herramienta clínica 3</div>
+    <h3>Escala de riesgo biopsicosocial de Herrera y Hurtado</h3>
+
+    <p>Aplica la escala utilizando la información obtenida
+    durante la entrevista y el examen físico de Laura.</p>
+
+    <p class="small">Referencia: Resolución 3280 de 2018,
+    Anexo 2. Selecciona los factores identificados.</p>
+
+    <form id="herrera-form" onsubmit="event.preventDefault(); calculateHerrera();">
+
+      <h3>I. Historia reproductiva</h3>
+
+      <label for="herrera-age"><strong>Edad materna</strong></label>
+
+      <select id="herrera-age" required>
+        <option value="">Seleccionar</option>
+        <option value="1">Menor de 16 años — 1 punto</option>
+        <option value="0">16 a 35 años — 0 puntos</option>
+        <option value="2">Mayor de 35 años — 2 puntos</option>
+      </select>
+
+      <label for="herrera-parity"><strong>Paridad</strong></label>
+
+      <select id="herrera-parity" required>
+        <option value="">Seleccionar</option>
+        <option value="1">Nulípara — 1 punto</option>
+        <option value="0">1 a 4 partos — 0 puntos</option>
+        <option value="2">Más de 4 partos — 2 puntos</option>
+      </select>
+
+      <div id="herrera-reproductive"></div>
+
+      <h3>II. Embarazo actual</h3>
+
+      <div id="herrera-current"></div>
+
+      <label for="herrera-bleeding">
+        <strong>Hemorragia durante el embarazo</strong>
+      </label>
+
+      <select id="herrera-bleeding">
+        <option value="0">Ausente — 0 puntos</option>
+        <option value="1">Antes de las 20 semanas — 1 punto</option>
+        <option value="2">Desde las 20 semanas — 2 puntos</option>
+      </select>
+
+      <h3>III. Riesgo psicosocial</h3>
+
+      <details>
+        <summary>¿Cómo evaluar este componente?</summary>
+
+        <div class="detail-content">
+          <p><strong>Ansiedad severa:</strong> evaluar
+          tensión emocional, humor depresivo y manifestaciones
+          neurovegetativas de angustia.</p>
+
+          <p>Asignar un punto si presenta al menos dos
+          componentes intensos.</p>
+
+          <p><strong>Soporte social inadecuado:</strong>
+          evaluar la satisfacción con el apoyo familiar
+          o de pareja en términos de tiempo, espacio
+          y recursos económicos.</p>
+
+          <p>Asignar un punto si presenta insatisfacción
+          en al menos dos aspectos.</p>
+        </div>
+      </details>
+
+      <div id="herrera-psychosocial"></div>
+
+      <button type="submit">
+        Calcular riesgo biopsicosocial
+      </button>
+
+      <button type="button" class="secondary"
+      onclick="resetHerrera()">
+        Reiniciar escala
+      </button>
+
+    </form>
+
+    <div id="herrera-result" class="result hidden"
+    aria-live="polite"></div>
+
+    <p class="small">El resultado corresponde únicamente
+    a los factores seleccionados. Las condiciones pendientes
+    de evaluación deben revisarse posteriormente.</p>
+
+    <details>
+      <summary>Resultado esperado para Laura</summary>
+
+      <div class="detail-content">
+
+        <table>
+          <tr><th>Factor identificado</th><th>Puntos</th></tr>
+          <tr><td>Edad mayor de 35 años</td><td>2</td></tr>
+          <tr><td>Paridad de 1</td><td>0</td></tr>
+          <tr><td>Cesárea previa</td><td>1</td></tr>
+          <tr><td>Preeclampsia previa</td><td>1</td></tr>
+          <tr><td>Recién nacido previo de 2.100 g</td><td>1</td></tr>
+          <tr><td>Embarazo actual: factores identificados</td><td>0</td></tr>
+          <tr><td>Componente psicosocial</td><td>0</td></tr>
+          <tr><th>Total inicial identificado</th><th>5</th></tr>
+        </table>
+
+        <div class="warning">
+          <strong>5 puntos — Alto riesgo biopsicosocial.</strong>
+          <p>El resultado deberá actualizarse al conocer
+          los paraclínicos y completar las evaluaciones pendientes.</p>
+        </div>
+
+        <p>La escala de Herrera y Hurtado no sustituye
+        la identificación individual de los factores de
+        riesgo obstétrico.</p>
+
+        <p>Laura presenta factores adicionales que
+        no otorgan puntos en esta escala:</p>
+
+        <ul>
+          <li>Obesidad pregestacional.</li>
+          <li>Antecedente de parto pretérmino.</li>
+          <li>Antecedente familiar de diabetes mellitus.</li>
+          <li>Presión arterial media de 90 mmHg.</li>
+        </ul>
+
+        <p>Aunque estos factores no modifican el puntaje
+        de Herrera y Hurtado, deben registrarse y gestionarse
+        durante el control prenatal.</p>
+
+      </div>
+    </details>
+
+  </div>
+
+  <h3>Clasificación final del riesgo</h3>
+
+  <p>¿Cómo clasificarías el embarazo de Laura?</p>
+
+  <div id="classification-options">
+
+    <label class="option">
+      <input type="radio" name="classification" value="low">
+      Embarazo de bajo riesgo obstétrico.
+    </label>
+
+    <label class="option">
+      <input type="radio" name="classification" value="high">
+      Embarazo de alto riesgo obstétrico.
+    </label>
+
+    <label class="option">
+      <input type="radio" name="classification" value="pending">
+      No es posible clasificar el riesgo hasta tener los paraclínicos.
+    </label>
+
+  </div>
+
+  <button onclick="classifyRisk()">
+    Verificar clasificación
+  </button>
+
+  <button class="secondary" onclick="resetClassification()">
+    Intentar nuevamente
+  </button>
+
+  <div class="result hidden" id="classification-result"
+  aria-live="polite"></div>
+
+</section>
+
+<section class="card" id="nota">
+  <div class="section-number">Integración clínica</div>
+  <h2>Nota clínica obstétrica</h2>
+
+  <p>Revisa cómo se organiza la información obtenida
+  durante la primera consulta prenatal.</p>
+
+  <details>
+    <summary>Consultar nota clínica completa</summary>
+
+    <div class="detail-content">
+      <div class="clinical-note">
+
+        <h3>Control prenatal — Primera consulta</h3>
+
+        <p>Paciente de 36 años, G2 P1 C1 A0.
+        Embarazo de 12+3 semanas por ecografía
+        del primer trimestre.</p>
+
+        <p><strong>Antecedentes personales:</strong>
+        niega antecedentes médicos, alérgicos, tóxicos
+        y transfusionales. Antecedente quirúrgico de cesárea.</p>
+
+        <p><strong>Antecedentes ginecológicos:</strong>
+        menarca a los 12 años, sexarca a los 19 años,
+        ciclos regulares. Niega ITS. Tamizaje cervical
+        vigente y negativo.</p>
+
+        <p><strong>Historia obstétrica:</strong></p>
+
+        <p><strong>#1:</strong> cesárea hace 5 años
+        a las 35 semanas por preeclampsia con criterios
+        de severidad. RN de 2.100 g. Niega diabetes
+        gestacional, alteraciones tiroideas durante
+        la gestación, hemorragia posparto, depresión
+        posparto, malformaciones congénitas y muerte perinatal.</p>
+
+        <p><strong>#2:</strong> embarazo actual planeado
+        y aceptado, misma pareja, sin consulta preconcepcional.
+        Cuenta con apoyo familiar y de pareja.</p>
+
+        <p><strong>Antecedentes familiares:</strong>
+        madre con DM2 y padre hipertenso. Niega antecedentes
+        familiares de preeclampsia y trastornos tiroideos.</p>
+
+        <p><strong>Farmacológicos:</strong>
+        ácido fólico con adecuada tolerancia.</p>
+
+        <p><strong>Vacunación:</strong>
+        antecedente de vacunación contra COVID-19 y tétanos.</p>
+
+        <p><strong>Atención integral:</strong>
+        citas agendadas de odontología y nutrición.</p>
+
+        <p><strong>Urgencias:</strong>
+        niega consultas durante el último mes.</p>
+
+        <p><strong>Enfermedad actual:</strong>
+        náuseas ocasionales sin intolerancia oral.
+        Niega sangrado, amniorrea, dolor abdominal,
+        disuria, fiebre, síntomas respiratorios y
+        flujo de características infecciosas.</p>
+
+        <p><strong>Valoración psicosocial:</strong>
+        adecuado apoyo familiar y de pareja.
+        Refiere satisfacción con el apoyo recibido
+        en tiempo, espacio y recursos económicos.
+        Niega tensión emocional intensa, síntomas
+        depresivos y manifestaciones neurovegetativas
+        de ansiedad. Niega exposición a violencia.</p>
+
+        <h3>Examen físico</h3>
+
+        <p>Buen estado general.</p>
+
+        <p>TA 118/76 mmHg. PAM 90 mmHg.
+        FC 82 lpm. FR 16 rpm. T 36,5 °C.</p>
+
+        <p>Peso pregestacional 82 kg, peso actual 83 kg,
+        talla 1,62 m. IMC pregestacional 31,2 kg/m².</p>
+
+        <p>Ruidos cardíacos rítmicos. Murmullo vesicular
+        universal. Abdomen blando, no doloroso.
+        FCF 158 lpm. Extremidades sin edema.</p>
+
+        <h3>Evaluación del riesgo</h3>
+
+        <p><strong>Alto riesgo obstétrico.</strong></p>
+
+        <p><strong>Escala de Herrera y Hurtado:</strong>
+        puntaje inicial de 5 puntos. Alto riesgo biopsicosocial.</p>
+
+        <p><strong>Factores y marcadores de riesgo:</strong></p>
+
+        <ul>
+          <li>Edad materna avanzada.</li>
+          <li>Antecedente de preeclampsia con criterios de severidad.</li>
+          <li>Antecedente de parto pretérmino indicado.</li>
+          <li>Antecedente de recién nacido con bajo peso al nacer.</li>
+          <li>Cesárea previa.</li>
+          <li>Obesidad pregestacional grado I.</li>
+          <li>Antecedente familiar de diabetes mellitus tipo 2.</li>
+          <li>PAM de 90 mmHg.</li>
+        </ul>
+
+        <p><strong>Riesgo psicosocial:</strong>
+        no se identifican factores de riesgo en los
+        componentes evaluados por la escala.</p>
+
+        <p><strong>Pendientes:</strong>
+        completar registro de FPP, revisar paraclínicos
+        iniciales, actualizar la escala de Herrera y Hurtado
+        según los resultados, verificar esquema de
+        vacunación, completar los instrumentos de
+        tamizaje correspondientes y establecer el plan
+        de gestión del riesgo.</p>
+
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- FIN DEL BLOQUE 1 -->
+  
+<section class="card">
+  <div class="section-number">Para recordar</div>
+  <h2>Mensajes clave de aprendizaje</h2>
+
+  <div class="info">
+    <strong>1. Una historia clínica completa permite anticipar complicaciones.</strong>
+    <p>Los antecedentes obstétricos negativos también
+    aportan información relevante.</p>
+  </div>
+
+  <div class="info">
+    <strong>2. El examen físico debe adaptarse a la edad gestacional.</strong>
+    <p>Cada maniobra obstétrica tiene una utilidad
+    clínica y un momento apropiado.</p>
+  </div>
+
+  <div class="info">
+    <strong>3. Una presión arterial normal no excluye el riesgo de preeclampsia.</strong>
+    <p>La PAM aporta información adicional para la
+    evaluación del riesgo.</p>
+  </div>
+
+  <div class="info">
+    <strong>4. Un factor de riesgo puede relacionarse con múltiples morbilidades trazadoras.</strong>
+    <p>Identificarlas permite orientar las estrategias
+    de prevención.</p>
+  </div>
+
+  <div class="info">
+    <strong>5. La evaluación del riesgo es dinámica.</strong>
+    <p>Debe actualizarse en cada consulta prenatal.</p>
+  </div>
+
+  <div class="info">
+    <strong>6. La escala de Herrera y Hurtado complementa el juicio clínico.</strong>
+    <p>No sustituye la identificación y gestión individual
+    de los factores de riesgo.</p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-number">Autoevaluación</div>
+  <h2>Evalúa tus competencias</h2>
+
+  <p>¿Cuál es tu nivel de confianza para realizar
+  las siguientes actividades?</p>
+
+  <div id="self-assessment"></div>
+
+  <button onclick="evaluateSelfAssessment()">
+    Finalizar autoevaluación
+  </button>
+
+  <div id="self-result" class="result hidden"
+  aria-live="polite"></div>
+
+  <p class="small">Esta autoevaluación es formativa.
+  No genera una calificación académica ni almacena datos personales.</p>
+</section>
+
+<section class="card">
+  <h2>Bibliografía de referencia</h2>
+
+  <ol class="small">
+    <li>
+      Ministerio de Salud y Protección Social de Colombia.
+      Resolución 3280 de 2018. Ruta Integral de Atención
+      en Salud Materno Perinatal. Anexo 2.
+      <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-3280-de-2018.pdf"
+      target="_blank" rel="noopener noreferrer">Consultar documento</a>.
+    </li>
+
+    <li>
+      ACOG y SMFM. Pregnancy at Age 35 Years or Older.
+      Obstetric Care Consensus No. 11. 2022.
+    </li>
+
+    <li>
+      Cnossen JS, et al. Accuracy of mean arterial
+      pressure and blood pressure measurements in
+      predicting pre-eclampsia: systematic review
+      and meta-analysis. BMJ. 2008;336:1117–1120.
+      <a href="https://www.bmj.com/content/336/7653/1117"
+      target="_blank" rel="noopener noreferrer">Consultar artículo</a>.
+    </li>
+
+    <li>
+      FIGO. A pragmatic guide for first-trimester
+      screening and prevention of pre-eclampsia. 2019.
+      <a href="https://doi.org/10.1002/ijgo.12802"
+      target="_blank" rel="noopener noreferrer">Consultar artículo</a>.
+    </li>
+
+    <li>
+      ISUOG Practice Guidelines: performance of
+      the 11–14-week ultrasound scan. 2023.
+      <a href="https://doi.org/10.1002/uog.26106"
+      target="_blank" rel="noopener noreferrer">Consultar artículo</a>.
+    </li>
+
+    <li>
+      Material docente de la rotación BP5:
+      Historia clínica obstétrica, formato de historia
+      obstétrica y guía de estudio.
+    </li>
+  </ol>
+</section>
+
+<section class="card">
+  <h2>Primera consulta prenatal</h2>
+
+  <p>Has llegado al final de este módulo.
+  Puedes volver a consultar las herramientas clínicas
+  y repetir los ejercicios cuando lo necesites.</p>
+
+  <a href="consulta-prenatal.html" class="button-link">
+    Volver a consulta prenatal
+  </a>
+
+  <a href="../index.html" class="button-link secondary">
+    Inicio de Obstetricia 360
+  </a>
+</section>
+
+</main>
+
+<footer>
+  <strong>Obstetricia 360</strong>
+  <br>
+  Recurso educativo para estudiantes de medicina.
+  <br>
+  Los casos clínicos son simulados.
+  <br>
+  Uso académico. No sustituye el juicio clínico.
+</footer>
+
+<!-- FIN DEL BLOQUE 2 -->
+  
+<script>
+const interviews = document.querySelectorAll('.interview');
+const visited = new Set();
+
+interviews.forEach((item,index) => {
+  item.addEventListener('toggle', () => {
+    if(item.open){
+      visited.add(index);
+      item.classList.add('visited');
+      document.getElementById('history-count').textContent =
+        visited.size + ' de 8 apartados explorados';
+      document.getElementById('history-progress').style.width =
+        (visited.size / 8 * 100) + '%';
+      if(visited.size === 8){
+        document.getElementById('history-complete')
+          .classList.remove('hidden');
+      }
+    }
+  });
+});
+
+const quizzes = {
+  exam: [
+    {
+      text:'Medición de signos vitales.',
+      correct:true,
+      explanation:'Permite establecer las condiciones clínicas basales.'
+    },
+    {
+      text:'Medición del peso y la talla y cálculo del IMC pregestacional.',
+      correct:true,
+      explanation:'Permite evaluar el estado nutricional y orientar la ganancia de peso.'
+    },
+    {
+      text:'Auscultación cardiopulmonar.',
+      correct:true,
+      explanation:'Forma parte del examen físico general.'
+    },
+    {
+      text:'Evaluación abdominal y auscultación de la frecuencia cardíaca fetal.',
+      correct:true,
+      explanation:'Debe adaptarse a la edad gestacional.'
+    },
+    {
+      text:'Evaluación de las extremidades.',
+      correct:true,
+      explanation:'Permite identificar hallazgos vasculares y edema.'
+    },
+    {
+      text:'Maniobras de Leopold.',
+      correct:false,
+      explanation:'No son pertinentes a las 12 semanas de gestación.'
+    },
+    {
+      text:'Medición de altura uterina con cinta métrica para evaluar crecimiento fetal.',
+      correct:false,
+      explanation:'No es una herramienta de seguimiento del crecimiento fetal a esta edad gestacional.'
+    },
+    {
+      text:'Tacto vaginal de rutina.',
+      correct:false,
+      explanation:'No está indicado sistemáticamente en una gestante asintomática.'
+    }
+  ],
+
+  risk: [
+    {
+      text:'Edad materna de 36 años.',
+      correct:true,
+      explanation:'Se asocia con mayor riesgo de preeclampsia, diabetes gestacional, parto pretérmino, bajo peso al nacer, enfermedad tromboembólica y aneuploidías.'
+    },
+    {
+      text:'Antecedente de preeclampsia con criterios de severidad.',
+      correct:true,
+      explanation:'Aumenta el riesgo de recurrencia de preeclampsia y restricción del crecimiento fetal.'
+    },
+    {
+      text:'Obesidad pregestacional.',
+      correct:true,
+      explanation:'Aumenta el riesgo de preeclampsia, diabetes gestacional y enfermedad tromboembólica.'
+    },
+    {
+      text:'Antecedente de cesárea.',
+      correct:true,
+      explanation:'Factor de riesgo para espectro de acretismo placentario.'
+    },
+    {
+      text:'Antecedente de parto pretérmino indicado.',
+      correct:true,
+      explanation:'Aumenta el riesgo de recurrencia de parto pretérmino.'
+    },
+    {
+      text:'Antecedente de recién nacido con bajo peso al nacer.',
+      correct:true,
+      explanation:'Aumenta el riesgo de recurrencia de bajo peso al nacer.'
+    },
+    {
+      text:'Madre con diabetes mellitus tipo 2.',
+      correct:true,
+      explanation:'El antecedente familiar de primer grado aumenta el riesgo de diabetes gestacional.'
+    },
+    {
+      text:'Presión arterial media de 90 mmHg.',
+      correct:true,
+      explanation:'Es un marcador orientativo de riesgo de preeclampsia. No constituye un diagnóstico ni un umbral universal.'
+    },
+    {
+      text:'Primipaternidad.',
+      correct:false,
+      explanation:'Laura tiene la misma pareja del embarazo anterior.'
+    },
+    {
+      text:'Intervalo intergenésico prolongado mayor de 10 años.',
+      correct:false,
+      explanation:'El intervalo referido es de aproximadamente cinco años.'
+    },
+    {
+      text:'Hipertensión arterial actual.',
+      correct:false,
+      explanation:'La presión arterial actual es de 118/76 mmHg.'
+    },
+    {
+      text:'Antecedente de diabetes gestacional.',
+      correct:false,
+      explanation:'La paciente niega este antecedente.'
+    },
+    {
+      text:'Ausencia de apoyo familiar.',
+      correct:false,
+      explanation:'La paciente refiere adecuado soporte familiar y de pareja.'
+    }
+  ]
+};
+
+function renderQuiz(name){
+  const container = document.getElementById(name + '-options');
+  if(!container) return;
+
+  container.innerHTML = '';
+
+  quizzes[name].forEach((item,index) => {
+    const label = document.createElement('label');
+    label.className = 'option';
+    label.id = name + '-label-' + index;
+
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.id = name + '-check-' + index;
+
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(' ' + item.text));
+    container.appendChild(label);
+
+    const feedback = document.createElement('div');
+    feedback.id = name + '-feedback-' + index;
+    feedback.className = 'small hidden';
+    container.appendChild(feedback);
+  });
+}
+
+function evaluateQuiz(name){
+  let score = 0;
+
+  quizzes[name].forEach((item,index) => {
+    const input = document.getElementById(name + '-check-' + index);
+    const label = document.getElementById(name + '-label-' + index);
+    const feedback = document.getElementById(name + '-feedback-' + index);
+
+    const correct = input.checked === item.correct;
+
+    if(correct) score++;
+
+    label.style.border = correct ?
+      '1px solid #16836b' : '1px solid #b45309';
+
+    feedback.textContent =
+      (correct ? 'Correcto. ' : 'Revisar. ') + item.explanation;
+
+    feedback.classList.remove('hidden');
+  });
+
+  const result = document.getElementById(name + '-result');
+
+  if(result){
+    result.innerHTML = '<strong>' + score + ' de ' +
+      quizzes[name].length + ' decisiones correctas.</strong>';
+    result.classList.remove('hidden');
+  }
+
+  const section = document.getElementById(
+    name === 'exam' ? 'exam-findings' : 'risk-table'
+  );
+
+  if(section) section.classList.remove('hidden');
+}
+
+function resetQuiz(name){
+  renderQuiz(name);
+
+  const result = document.getElementById(name + '-result');
+  if(result) result.classList.add('hidden');
+
+  const section = document.getElementById(
+    name === 'exam' ? 'exam-findings' : 'risk-table'
+  );
+
+  if(section) section.classList.add('hidden');
+}
+
+renderQuiz('exam');
+renderQuiz('risk');
+
+// FIN DEL BLOQUE 3A
+  
+function calculateBMI(){
+  const weight = Number(document.getElementById('bmi-weight').value);
+  let height = Number(document.getElementById('bmi-height').value);
+  const result = document.getElementById('bmi-result');
+
+  if(height > 3) height = height / 100;
+
+  result.classList.remove('hidden');
+
+  if(weight <= 0 || height <= 0){
+    result.textContent = 'Introduce un peso y una talla válidos.';
+    return;
+  }
+
+  const bmi = weight / (height * height);
+
+  let category;
+  if(bmi < 18.5) category = 'Bajo peso';
+  else if(bmi < 25) category = 'Peso normal';
+  else if(bmi < 30) category = 'Sobrepeso';
+  else if(bmi < 35) category = 'Obesidad grado I';
+  else if(bmi < 40) category = 'Obesidad grado II';
+  else category = 'Obesidad grado III';
+
+  result.innerHTML = '<strong>IMC: ' +
+    bmi.toFixed(1) + ' kg/m²</strong><p>' +
+    category + '</p>';
+}
+
+function calculatePAM(){
+  const systolic = Number(document.getElementById('pam-systolic').value);
+  const diastolic = Number(document.getElementById('pam-diastolic').value);
+  const result = document.getElementById('pam-result');
+
+  result.classList.remove('hidden');
+
+  if(systolic <= diastolic || diastolic <= 0){
+    result.textContent = 'Introduce valores válidos de presión arterial.';
+    return;
+  }
+
+  const pam = (systolic + 2 * diastolic) / 3;
+
+  result.innerHTML = '<strong>PAM: ' +
+    pam.toFixed(1) + ' mmHg</strong>' +
+    '<p>La presión arterial media aporta información para la evaluación del riesgo de preeclampsia. Su interpretación debe integrarse con los antecedentes y otros marcadores.</p>';
+}
+
+const herreraFactors = {
+  reproductive: [
+    ['Cesárea previa',1],
+    ['Preeclampsia o hipertensión previa',1],
+    ['Abortos habituales o infertilidad',1],
+    ['Hemorragia posparto o extracción manual de placenta',1],
+    ['Recién nacido previo menor de 2.500 g o mayor de 4.000 g',1],
+    ['Muerte fetal tardía o neonatal temprana',1],
+    ['Trabajo de parto anormal',1],
+    ['Cirugía ginecológica previa',1]
+  ],
+
+  current: [
+    ['Enfermedad renal crónica',2],
+    ['Diabetes gestacional',2],
+    ['Diabetes pregestacional',3],
+    ['Anemia: hemoglobina menor de 10 g/dL',1],
+    ['Embarazo prolongado mayor de 42 semanas',1],
+    ['Hipertensión arterial',2],
+    ['Polihidramnios',2],
+    ['Embarazo múltiple',3],
+    ['Presentación de frente o situación transversa',3],
+    ['Isoinmunización',3]
+  ],
+
+  psychosocial: [
+    ['Ansiedad severa',1],
+    ['Soporte social inadecuado',1]
+  ]
+};
+
+function renderHerrera(){
+  Object.keys(herreraFactors).forEach(group => {
+    const container = document.getElementById('herrera-' + group);
+
+    if(!container) return;
+
+    container.innerHTML = '';
+
+    herreraFactors[group].forEach(item => {
+      const label = document.createElement('label');
+      label.className = 'option';
+
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.className = 'herrera-' + group;
+      input.value = item[1];
+
+      label.appendChild(input);
+
+      label.appendChild(document.createTextNode(
+        ' ' + item[0] + ' — ' + item[1] +
+        (item[1] === 1 ? ' punto' : ' puntos')
+      ));
+
+      container.appendChild(label);
+    });
+  });
+}
+
+function calculateHerrera(){
+  const age = document.getElementById('herrera-age').value;
+  const parity = document.getElementById('herrera-parity').value;
+  const bleeding = document.getElementById('herrera-bleeding').value;
+  const result = document.getElementById('herrera-result');
+
+  result.classList.remove('hidden');
+
+  if(age === '' || parity === ''){
+    result.textContent = 'Selecciona la edad y la paridad.';
+    return;
+  }
+
+  let reproductive = Number(age) + Number(parity);
+  let current = Number(bleeding);
+  let psychosocial = 0;
+
+  document.querySelectorAll('.herrera-reproductive:checked')
+    .forEach(item => reproductive += Number(item.value));
+
+  document.querySelectorAll('.herrera-current:checked')
+    .forEach(item => current += Number(item.value));
+
+  document.querySelectorAll('.herrera-psychosocial:checked')
+    .forEach(item => psychosocial += Number(item.value));
+
+  const total = reproductive + current + psychosocial;
+
+  const classification = total >= 3 ?
+    'Alto riesgo biopsicosocial' :
+    'Bajo riesgo biopsicosocial';
+
+  result.innerHTML =
+    '<p>Historia reproductiva: ' + reproductive + '</p>' +
+    '<p>Embarazo actual: ' + current + '</p>' +
+    '<p>Riesgo psicosocial: ' + psychosocial + '</p>' +
+    '<hr><strong>Puntaje total: ' + total + '</strong>' +
+    '<h3>' + classification + '</h3>' +
+    '<p>Resultado inicial según los factores evaluados. Actualizar durante el seguimiento prenatal.</p>';
+}
+
+function resetHerrera(){
+  document.getElementById('herrera-form').reset();
+  document.getElementById('herrera-result')
+    .classList.add('hidden');
+}
+
+function classifyRisk(){
+  const selected = document.querySelector(
+    'input[name="classification"]:checked'
+  );
+
+  const result = document.getElementById('classification-result');
+
+  result.classList.remove('hidden');
+
+  if(!selected){
+    result.textContent = 'Selecciona una respuesta.';
+    return;
+  }
+
+  if(selected.value === 'high'){
+    result.innerHTML =
+      '<strong>Correcto. Alto riesgo obstétrico.</strong>' +
+      '<p>Los antecedentes y factores de riesgo identificados permiten clasificar el embarazo desde la primera consulta, sin esperar los resultados de laboratorio.</p>';
+  } else {
+    result.innerHTML =
+      '<strong>Revisa tu respuesta.</strong>' +
+      '<p>Laura presenta múltiples factores que permiten establecer desde ahora una clasificación de alto riesgo obstétrico.</p>';
+  }
+}
+
+function resetClassification(){
+  document.querySelectorAll('input[name="classification"]')
+    .forEach(item => item.checked = false);
+
+  document.getElementById('classification-result')
+    .classList.add('hidden');
+}
+
+const competencies = [
+  'Realizar una anamnesis obstétrica completa.',
+  'Identificar los antecedentes obstétricos relevantes.',
+  'Seleccionar el examen físico según la edad gestacional.',
+  'Calcular e interpretar el IMC pregestacional.',
+  'Calcular e interpretar la presión arterial media.',
+  'Identificar factores de riesgo obstétrico.',
+  'Relacionar los factores de riesgo con las morbilidades trazadoras.',
+  'Aplicar la escala de Herrera y Hurtado.',
+  'Clasificar el riesgo obstétrico.',
+  'Registrar una nota clínica obstétrica organizada.'
+];
+
+function renderSelfAssessment(){
+  const container = document.getElementById('self-assessment');
+
+  if(!container) return;
+
+  competencies.forEach((item,index) => {
+    const block = document.createElement('div');
+    block.style.marginBottom = '18px';
+
+    const label = document.createElement('label');
+    label.textContent = (index + 1) + '. ' + item;
+    label.htmlFor = 'competency-' + index;
+
+    const select = document.createElement('select');
+    select.id = 'competency-' + index;
+    select.className = 'competency';
+
+    const options = [
+      ['', 'Seleccionar'],
+      ['1', 'Necesito estudiar este tema'],
+      ['2', 'Puedo hacerlo con ayuda'],
+      ['3', 'Puedo hacerlo de manera autónoma']
+    ];
+
+    options.forEach(item => {
+      const option = document.createElement('option');
+      option.value = item[0];
+      option.textContent = item[1];
+      select.appendChild(option);
+    });
+
+    block.appendChild(label);
+    block.appendChild(select);
+    container.appendChild(block);
+  });
+}
+
+function evaluateSelfAssessment(){
+  const selections = Array.from(
+    document.querySelectorAll('.competency')
+  );
+
+  const result = document.getElementById('self-result');
+
+  result.classList.remove('hidden');
+
+  if(selections.some(item => item.value === '')){
+    result.textContent = 'Completa todas las competencias.';
+    return;
+  }
+
+  const independent = selections.filter(
+    item => item.value === '3'
+  ).length;
+
+  const assisted = selections.filter(
+    item => item.value === '2'
+  ).length;
+
+  const pending = selections.filter(
+    item => item.value === '1'
+  ).length;
+
+  result.innerHTML =
+    '<h3>Tu perfil de aprendizaje</h3>' +
+    '<p>Competencias autónomas: ' + independent + '</p>' +
+    '<p>Competencias que requieren acompañamiento: ' + assisted + '</p>' +
+    '<p>Competencias por reforzar: ' + pending + '</p>' +
+    '<p>Utiliza este resultado para orientar tu estudio antes y durante la rotación.</p>';
+}
+
+renderHerrera();
+renderSelfAssessment();
+
+</script>
+
+</body>
+</html>
+<!-- FIN DEL ARCHIVO -->
+
