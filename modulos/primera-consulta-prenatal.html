@@ -1,0 +1,863 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primera consulta prenatal | Obstetricia 360</title>
+
+<style>
+:root {
+  --primary: #236b65;
+  --dark: #174c48;
+  --light: #eaf5f2;
+  --background: #f5f7f8;
+  --text: #263b40;
+  --border: #dce5e5;
+  --success: #246b48;
+  --warning: #936118;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+header {
+  background: var(--dark);
+  color: white;
+  padding: 34px 20px;
+}
+
+.header-content {
+  max-width: 850px;
+  margin: auto;
+}
+
+.brand {
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: .85;
+}
+
+h1 {
+  font-size: clamp(26px, 5vw, 36px);
+  line-height: 1.25;
+  margin: 18px 0 10px;
+}
+
+h2 {
+  color: var(--dark);
+  font-size: 24px;
+  line-height: 1.3;
+  margin-top: 0;
+}
+
+h3 {
+  color: var(--primary);
+  font-size: 19px;
+  margin-top: 25px;
+}
+
+main {
+  max-width: 890px;
+  margin: auto;
+  padding: 20px 16px;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 3px 12px rgba(0,0,0,.035);
+}
+
+.section-number {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.info {
+  background: var(--light);
+  border-left: 4px solid var(--primary);
+  padding: 16px;
+  border-radius: 6px;
+  margin: 18px 0;
+}
+
+.warning {
+  background: #fff6e6;
+  border-left: 4px solid #c99439;
+  padding: 15px;
+  border-radius: 6px;
+  margin: 15px 0;
+}
+
+.small {
+  font-size: 13px;
+  color: #617477;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+}
+
+.metric {
+  background: var(--light);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.metric span {
+  display: block;
+  font-size: 13px;
+  color: #4b6967;
+}
+
+.metric strong {
+  display: block;
+  font-size: 23px;
+  color: var(--dark);
+}
+
+details {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+summary {
+  cursor: pointer;
+  background: #f6faf9;
+  padding: 15px;
+  font-weight: bold;
+  color: var(--dark);
+}
+
+details .detail-content {
+  padding: 4px 17px 17px;
+}
+
+details.visited summary {
+  background: var(--light);
+}
+
+details.visited summary::after {
+  content: " ✓";
+  color: var(--success);
+}
+
+.progress {
+  height: 9px;
+  background: #e3eae9;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  background: var(--primary);
+  transition: width .3s;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #f7faf9;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #bfcfcd;
+  border-radius: 8px;
+  background: white;
+  color: var(--text);
+  font-size: 16px;
+  margin: 6px 0 14px;
+}
+
+button, .button-link {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 10px 6px 6px 0;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:hover, .button-link:hover {
+  background: var(--dark);
+}
+
+.secondary {
+  background: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.secondary:hover {
+  background: var(--light);
+}
+
+.result {
+  margin-top: 15px;
+  padding: 18px;
+  background: var(--light);
+  border-radius: 10px;
+}
+
+.result-number {
+  font-size: 32px;
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.correct {
+  background: #edf8f0 !important;
+  border-color: #80b394 !important;
+}
+
+.incorrect {
+  background: #fff1ef !important;
+  border-color: #d9a09b !important;
+}
+
+.feedback {
+  font-size: 14px;
+  margin: 5px 10px 14px;
+}
+
+.good { color: var(--success); }
+.bad { color: #a33d35; }
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  margin: 15px 0;
+}
+
+th, td {
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  padding: 12px 10px;
+  vertical-align: top;
+}
+
+th {
+  background: var(--light);
+  color: var(--dark);
+}
+
+.formula {
+  text-align: center;
+  background: #f5f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.calculator {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  margin: 18px 0;
+}
+
+.score {
+  margin-left: auto;
+  color: var(--primary);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.clinical-note {
+  font-size: 15px;
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 10px;
+  background: #fcfdfd;
+}
+
+.hidden { display: none; }
+
+nav {
+  margin-top: 15px;
+}
+
+nav a {
+  color: var(--primary);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: #657778;
+  font-size: 13px;
+}
+
+a { color: var(--primary); }
+
+li { margin-bottom: 7px; }
+
+@media(max-width: 520px) {
+  .card { padding: 18px; }
+  .calculator { padding: 14px; }
+  .metric strong { font-size: 20px; }
+  button { width: 100%; }
+  h2 { font-size: 22px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="brand">OBSTETRICIA 360</div>
+    <div class="subtitle">Aprendizaje clínico interactivo</div>
+    <h1>01.2 Primera consulta prenatal</h1>
+    <div>Consulta prenatal · Razonamiento clínico</div>
+  </div>
+</header>
+
+<main>
+
+<nav>
+  <a href="../index.html">← Inicio</a>
+  &nbsp; | &nbsp;
+  <a href="consulta-prenatal.html">Consulta prenatal</a>
+</nav>
+
+<section class="card">
+  <div class="section-number">Objetivos de aprendizaje</div>
+  <h2>¿Qué aprenderás?</h2>
+
+  <ul>
+    <li>Realizar una anamnesis obstétrica completa y organizada.</li>
+    <li>Identificar antecedentes personales, familiares, ginecológicos y obstétricos relevantes.</li>
+    <li>Realizar un examen físico acorde con la edad gestacional.</li>
+    <li>Calcular e interpretar el IMC pregestacional y la presión arterial media.</li>
+    <li>Identificar los factores de riesgo y relacionarlos con las morbilidades trazadoras del embarazo.</li>
+    <li>Aplicar la escala de riesgo biopsicosocial de Herrera y Hurtado.</li>
+    <li>Elaborar una nota clínica obstétrica estructurada.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <div class="section-number">Caso clínico</div>
+  <h2>Conoce a Laura</h2>
+
+  <p>Laura, de 36 años, acude para iniciar su control prenatal.
+  Refiere náuseas ocasionales y manifiesta sentirse bien.
+  Trae una ecografía del primer trimestre que documenta
+  un embarazo único viable.</p>
+
+  <div class="grid">
+    <div class="metric">
+      <span>Edad materna</span>
+      <strong>36 años</strong>
+    </div>
+    <div class="metric">
+      <span>Edad gestacional</span>
+      <strong>12+3 semanas</strong>
+    </div>
+    <div class="metric">
+      <span>Ficha obstétrica</span>
+      <strong>G2 P1 C1 A0</strong>
+    </div>
+    <div class="metric">
+      <span>Motivo de consulta</span>
+      <strong>Control prenatal</strong>
+    </div>
+  </div>
+
+  <div class="info">
+    <strong>Tu misión</strong>
+    <p>Realiza la primera consulta prenatal, identifica los
+    factores de riesgo y establece una valoración clínica
+    que permita orientar el seguimiento de esta gestante.</p>
+  </div>
+</section>
+
+<section class="card" id="historia">
+  <div class="section-number">Decisión 1 de 3</div>
+  <h2>Historia clínica</h2>
+
+  <p>¿Qué información necesitas obtener durante la primera
+  consulta prenatal?</p>
+
+  <p>Selecciona cada apartado para realizar la entrevista.</p>
+
+  <div class="small" id="history-count">
+    0 de 8 apartados explorados
+  </div>
+
+  <div class="progress">
+    <div class="progress-fill" id="history-progress"></div>
+  </div>
+
+  <details class="interview">
+    <summary>Antecedentes personales</summary>
+    <div class="detail-content">
+      <p>Niega antecedentes de hipertensión arterial, diabetes,
+      enfermedad renal, alteraciones tiroideas, alergias,
+      transfusiones y consumo de tabaco, alcohol u otras sustancias.</p>
+      <p>Antecedente quirúrgico de cesárea. Niega otras
+      cirugías u hospitalizaciones.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Antecedentes ginecológicos</summary>
+    <div class="detail-content">
+      <p>Menarca a los 12 años. Sexarca a los 19 años.
+      Ciclos menstruales regulares. Niega infecciones de
+      transmisión sexual. Tamizaje de cáncer de cuello
+      uterino vigente y negativo.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Historia obstétrica previa</summary>
+    <div class="detail-content">
+      <p>Cesárea hace 5 años a las 35 semanas por
+      preeclampsia con criterios de severidad.
+      Recién nacido de 2.100 g.</p>
+
+      <p>Niega antecedentes de diabetes gestacional,
+      alteraciones tiroideas durante la gestación,
+      hemorragia posparto y depresión posparto.</p>
+
+      <p>Niega malformaciones congénitas y muerte perinatal.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Antecedentes familiares</summary>
+    <div class="detail-content">
+      <p>Madre con diabetes mellitus tipo 2.
+      Padre con hipertensión arterial.</p>
+
+      <p>Niega antecedentes familiares de preeclampsia
+      y trastornos tiroideos.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Embarazo actual</summary>
+    <div class="detail-content">
+      <p>Embarazo planeado y aceptado. Misma pareja
+      del embarazo anterior.</p>
+
+      <p>No realizó consulta preconcepcional.
+      Inició ácido fólico después de conocer el embarazo.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Enfermedad actual</summary>
+    <div class="detail-content">
+      <p>Refiere náuseas ocasionales sin intolerancia oral.</p>
+
+      <p>Niega sangrado, amniorrea, dolor abdominal,
+      disuria, fiebre, síntomas respiratorios y flujo
+      de características infecciosas.</p>
+
+      <p>Niega consultas a urgencias durante el último mes.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Valoración psicosocial</summary>
+    <div class="detail-content">
+      <p>Cuenta con apoyo familiar y de pareja.</p>
+
+      <p>Refiere satisfacción con el apoyo recibido
+      en términos de tiempo, espacio y recursos económicos.</p>
+
+      <p>Niega tensión emocional intensa, síntomas
+      depresivos y manifestaciones neurovegetativas
+      de ansiedad.</p>
+
+      <p>Niega exposición a violencia en entrevista privada.</p>
+    </div>
+  </details>
+
+  <details class="interview">
+    <summary>Medicamentos y atención integral</summary>
+    <div class="detail-content">
+      <p><strong>Farmacológicos:</strong> recibe ácido fólico
+      con adecuada tolerancia.</p>
+
+      <p><strong>Vacunación:</strong> refiere vacunación
+      previa contra COVID-19 y tétanos.</p>
+
+      <p><strong>Atención integral:</strong> tiene citas
+      agendadas para valoración por odontología y nutrición.</p>
+    </div>
+  </details>
+
+  <div id="history-complete" class="info hidden">
+    <strong>Entrevista completada.</strong>
+    Ya puedes continuar con el examen físico.
+  </div>
+
+  <details>
+    <summary>Retroalimentación pedagógica</summary>
+    <div class="detail-content">
+
+      <p>La historia obstétrica no se limita a registrar
+      la fórmula obstétrica. En cada embarazo previo se
+      debe indagar por la fecha y vía del parto, edad
+      gestacional de finalización, peso del recién nacido
+      y complicaciones como:</p>
+
+      <ul>
+        <li>Trastornos hipertensivos del embarazo.</li>
+        <li>Diabetes gestacional.</li>
+        <li>Alteraciones tiroideas.</li>
+        <li>Parto pretérmino espontáneo o indicado.</li>
+        <li>Hemorragia posparto.</li>
+        <li>Depresión posparto.</li>
+        <li>Malformaciones congénitas.</li>
+        <li>Muerte fetal o neonatal.</li>
+      </ul>
+
+      <p>También es fundamental evaluar la planeación
+      y aceptación del embarazo, la consulta preconcepcional,
+      las redes de apoyo y la exposición a violencias.</p>
+
+      <p>La identificación de estos antecedentes permite
+      anticipar complicaciones y orientar las intervenciones
+      durante el embarazo actual.</p>
+
+    </div>
+  </details>
+</section>
+
+<section class="card" id="examen">
+  <div class="section-number">Decisión 2 de 3</div>
+  <h2>Examen físico</h2>
+
+  <p>¿Qué componentes del examen físico son apropiados
+  para Laura, teniendo en cuenta su edad gestacional
+  de 12+3 semanas?</p>
+
+  <p class="small">Selecciona todas las opciones correctas.</p>
+
+  <div id="exam-options"></div>
+
+  <button onclick="evaluateQuiz('exam')">
+    Verificar respuestas
+  </button>
+
+  <button class="secondary" onclick="resetQuiz('exam')">
+    Intentar nuevamente
+  </button>
+
+  <div id="exam-result" class="result hidden"
+  aria-live="polite"></div>
+
+  <div id="exam-findings" class="hidden">
+
+    <h3>Resultados del examen físico</h3>
+
+    <div class="grid">
+
+      <div class="metric">
+        <span>Presión arterial</span>
+        <strong>118/76</strong>
+        <span>mmHg</span>
+      </div>
+
+      <div class="metric">
+        <span>Frecuencia cardíaca</span>
+        <strong>82 lpm</strong>
+      </div>
+
+      <div class="metric">
+        <span>Frecuencia respiratoria</span>
+        <strong>16 rpm</strong>
+      </div>
+
+      <div class="metric">
+        <span>Temperatura</span>
+        <strong>36,5 °C</strong>
+      </div>
+
+      <div class="metric">
+        <span>Peso pregestacional</span>
+        <strong>82 kg</strong>
+      </div>
+
+      <div class="metric">
+        <span>Peso actual</span>
+        <strong>83 kg</strong>
+      </div>
+
+      <div class="metric">
+        <span>Talla</span>
+        <strong>1,62 m</strong>
+      </div>
+
+      <div class="metric">
+        <span>Frecuencia cardíaca fetal</span>
+        <strong>158 lpm</strong>
+        <span>Mediante Doppler</span>
+      </div>
+
+    </div>
+
+    <p>Buen estado general. Ruidos cardíacos rítmicos.
+    Murmullo vesicular universal. Abdomen blando,
+    no doloroso. Extremidades sin edema.</p>
+
+  </div>
+
+  <div class="calculator">
+    <div class="section-number">Herramienta clínica 1</div>
+    <h3>Calculadora de IMC pregestacional</h3>
+
+    <div class="formula">
+      IMC = Peso (kg) / Talla (m)²
+    </div>
+
+    <div class="grid">
+      <div>
+        <label for="weight">Peso pregestacional (kg)</label>
+        <input type="number" id="weight"
+        value="82" min="1" step="0.1">
+      </div>
+      <div>
+        <label for="height">Talla (cm)</label>
+        <input type="number" id="height"
+        value="162" min="1" step="0.1">
+      </div>
+    </div>
+
+    <button onclick="calculateBMI()">Calcular IMC</button>
+
+    <button class="secondary" onclick="resetBMI()">
+      Restablecer valores de Laura
+    </button>
+
+    <div class="result hidden" id="bmi-result"
+    aria-live="polite"></div>
+
+    <details>
+      <summary>Clasificación del IMC pregestacional</summary>
+      <div class="detail-content">
+        <table>
+          <tr><th>IMC (kg/m²)</th><th>Clasificación</th></tr>
+          <tr><td>&lt;18,5</td><td>Bajo peso</td></tr>
+          <tr><td>18,5–24,9</td><td>Peso normal</td></tr>
+          <tr><td>25–29,9</td><td>Sobrepeso</td></tr>
+          <tr><td>30–34,9</td><td>Obesidad grado I</td></tr>
+          <tr><td>35–39,9</td><td>Obesidad grado II</td></tr>
+          <tr><td>≥40</td><td>Obesidad grado III</td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details>
+      <summary>Interpretación del caso</summary>
+      <div class="detail-content">
+        <p>Laura presenta obesidad pregestacional grado I,
+        con un IMC de 31,2 kg/m².</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="calculator">
+    <div class="section-number">Herramienta clínica 2</div>
+    <h3>Calculadora de presión arterial media</h3>
+
+    <div class="formula">
+      PAM = [PAS + 2(PAD)] / 3
+    </div>
+
+    <div class="grid">
+      <div>
+        <label for="systolic">Sistólica (mmHg)</label>
+        <input type="number" id="systolic"
+        value="118" min="1">
+      </div>
+      <div>
+        <label for="diastolic">Diastólica (mmHg)</label>
+        <input type="number" id="diastolic"
+        value="76" min="1">
+      </div>
+    </div>
+
+    <button onclick="calculateMAP()">Calcular PAM</button>
+
+    <button class="secondary" onclick="resetMAP()">
+      Restablecer valores de Laura
+    </button>
+
+    <div id="map-result" class="result hidden"
+    aria-live="polite"></div>
+
+    <details>
+      <summary>Retroalimentación pedagógica</summary>
+      <div class="detail-content">
+        <p>Aunque Laura presenta cifras tensionales que
+        no cumplen criterios de hipertensión arterial,
+        su PAM de 90 mmHg constituye un marcador adicional
+        de riesgo de preeclampsia.</p>
+
+        <p>La presión arterial media debe interpretarse
+        junto con los antecedentes obstétricos y las
+        características maternas.</p>
+      </div>
+    </details>
+
+    <p class="small">Una PAM de 90 mmHg se utiliza aquí
+    como umbral orientativo de riesgo. No constituye
+    un criterio diagnóstico de preeclampsia ni un umbral
+    universal de tamizaje.</p>
+
+  </div>
+</section>
+
+<section class="card" id="riesgo">
+  <div class="section-number">Decisión 3 de 3</div>
+  <h2>Evaluación del riesgo obstétrico</h2>
+
+  <p>Ahora que conoces la historia clínica y los hallazgos
+  del examen físico, identifica los factores y marcadores
+  de riesgo presentes en Laura.</p>
+
+  <div id="risk-options"></div>
+
+  <button onclick="evaluateQuiz('risk')">
+    Evaluar factores de riesgo
+  </button>
+
+  <button class="secondary" onclick="resetQuiz('risk')">
+    Intentar nuevamente
+  </button>
+
+  <div id="risk-result" class="result hidden"
+  aria-live="polite"></div>
+
+  <div id="risk-table" class="hidden">
+
+    <h3>Factores de riesgo y morbilidades trazadoras</h3>
+
+    <p>Un mismo factor de riesgo puede estar relacionado
+    con múltiples complicaciones maternas y perinatales.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Factor o marcador de riesgo</th>
+          <th>Morbilidades relacionadas</th>
+        </tr>
+
+        <tr>
+          <td><strong>Edad materna ≥35 años</strong></td>
+          <td>Preeclampsia, diabetes gestacional,
+          parto pretérmino, bajo peso al nacer,
+          eventos tromboembólicos venosos y aneuploidías.</td>
+        </tr>
+
+        <tr>
+          <td><strong>Preeclampsia previa</strong></td>
+          <td>Recurrencia de preeclampsia y
+          restricción del crecimiento fetal.</td>
+        </tr>
+
+        <tr>
+          <td><strong>Obesidad pregestacional</strong></td>
+          <td>Preeclampsia, diabetes gestacional
+          y eventos tromboembólicos venosos.</td>
+        </tr>
+
+        <tr>
+          <td><strong>Cesárea previa</strong></td>
+          <td>Espectro de acretismo placentario.</td>
+        </tr>
+
+        <tr>
+          <td><strong>Parto pretérmino indicado</strong></td>
+          <td>Recurrencia de parto pretérmino indicado.</td>
+        </tr>
+
+        <tr>
+          <td><strong>Antecedente de bajo peso al nacer</strong></td>
+          <td>Mayor riesgo de recurrencia de bajo peso al nacer.</td>
+        </tr>
+
+        <tr>
+          <td><strong>Familiar de primer grado con diabetes mellitus</strong></td>
+          <td>Diabetes gestacional.</td>
+        </tr>
+
+        <tr>
+          <td><strong>PAM de 90 mmHg</strong></td>
+          <td>Preeclampsia.</td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="calculator" id="herrera">
+    <
