@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obstetricia 360</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f3f7f7;color:#173d4b;font:17px/1.6 system-ui,sans-serif}
+header{background:#173d4b;color:white;padding:24px}
+header div,main{max-width:850px;margin:auto}
+main{padding:20px}
+section{background:white;border:1px solid #d8e5e5;border-radius:18px;padding:24px;margin:15px 0}
+h1,h2,h3{line-height:1.2}
+button,select,input{font:inherit;padding:10px;border:1px solid #9ab7b9;border-radius:9px}
+button{background:#397f83;color:white;cursor:pointer;margin:4px}
+button:disabled{opacity:.5}
+nav button{background:white;color:#173d4b}
+nav button.active{background:#397f83;color:white}
+label{display:block;margin:10px 0}
+input,select{max-width:100%}
+output,.result{display:block;background:#e2f1ef;padding:16px;border-radius:10px;margin:14px 0}
+small{color:#526b72}
+header small{color:#cde5e2}
+progress{width:100%;accent-color:#397f83}
+table{border-collapse:collapse;width:100%}
+td,th{padding:8px;border-bottom:1px solid #ddd;text-align:left}
+a{color:#216c70}
+.option{display:block;text-align:left;width:100%;background:white;color:#173d4b}
+.option.chosen{background:#cde5e2}
+.option:disabled{opacity:1}
+footer{padding:20px;text-align:center}
+[hidden]{display:none!important}
+</style>
+<header>
+  <div>
+    <small>CONSULTA PRENATAL · BLOQUE 01 · V1</small>
+    <h1>Obstetricia 360</h1>
+    Edad gestacional y datación del embarazo
+  </div>
+</header>
+<main>
+  <nav id="nav"></nav>
+  <progress id="progress" max="6" value="0"></progress>
+  <small id="status"></small>
+
+  <section class="page">
+    <h2>Del conocimiento al razonamiento clínico</h2>
+    <p>Una paciente refiere tener 20 semanas por su última menstruación, pero su primera ecografía indica una edad diferente. ¿Cuál debes utilizar?</p>
+    <p>Aprende a calcular, justificar y documentar una edad gestacional confiable y una fecha probable de parto (FPP).</p>
+    <p>Medicina · Octavo semestre · 20–25 minutos</p>
+    <button onclick="go(1)">Comenzar recorrido</button>
+  </section>
+
+  <section class="page" hidden>
+    <h2>1. Comprende el tiempo del embarazo</h2>
+    <p>La duración promedio es de 280 días (40 semanas) desde el primer día de la última menstruación. La EG se expresa en semanas completas y días adicionales.</p>
+    <label>Semanas <input id="w" type="number" min="0" max="45" value="12" oninput="timeline()"></label>
+    <label>Días <input id="d" type="number" min="0" max="6" value="4" oninput="timeline()"></label>
+    <output id="timeOut"></output>
+    <table>
+      <tr><th>Trimestre</th><th>Intervalo</th></tr>
+      <tr><td>Primero</td><td>0+0 a 13+6</td></tr>
+      <tr><td>Segundo</td><td>14+0 a 27+6</td></tr>
+      <tr><td>Tercero</td><td>Desde 28+0</td></tr>
+    </table>
+  </section>
+
+  <section class="page" hidden>
+    <h2>2. Calcula la EG y la FPP</h2>
+    <p>EG por FUM = días transcurridos ÷ 7. FPP = FUM + 280 días (ciclos de aproximadamente 28 días).</p>
+    <label>Método
+      <select id="mode" onchange="ecoFields.hidden=this.value==='fum';calc()">
+        <option value="fum">FUM</option>
+        <option value="eco">Ecografía</option>
+      </select>
+    </label>
+    <label>Fecha de FUM o estudio <input type="date" id="base" value="2026-08-01" onchange="calc()"></label>
+    <div id="ecoFields" hidden>
+      <label>Semanas en ecografía <input id="ew" type="number" min="0" max="45" value="9" oninput="calc()"></label>
+      <label>Días <input id="ed" type="number" min="0" max="6" value="3" oninput="calc()"></label>
+    </div>
+    <label>Fecha de consulta <input type="date" id="visit" value="2026-11-19" onchange="calc()"></label>
+    <output id="calcOut"></output>
+    <button onclick="calc()">Calcular</button>
+    <button onclick="copyResult()">Copiar resultado</button>
+    <small id="copyStatus"></small>
+    <p><small>Calcular por FUM no implica que esta sea confiable. Por ecografía, suma los días transcurridos desde el estudio.</small></p>
+  </section>
+
+  <section class="page" hidden>
+    <h2>3. ¿Es confiable la FUM?</h2>
+    <p>Explora la duración habitual de los ciclos y los siguientes criterios de la guía docente.</p>
+    <div id="criteria"></div>
+    <output id="fumOut"></output>
+  </section>
+
+  <section class="page" hidden>
+    <h2>4. Datación ecográfica</h2>
+    <p>La longitud cefalocaudal (LCC o CRL) durante el primer trimestre es el parámetro ecográfico más preciso. La ventana 11+0 a 13+6 permite establecer o confirmar la datación y evaluar integralmente el primer trimestre. Una ecografía anterior técnicamente adecuada también puede establecer una datación confiable.</p>
+    <h3>Umbrales de discrepancia ACOG</h3>
+    <table>
+      <tr><th>EG</th><th>Diferencia que apoya redatación</th></tr>
+      <tr><td>Hasta 8+6</td><td>Más de 5 días</td></tr>
+      <tr><td>9+0–13+6</td><td>Más de 7 días</td></tr>
+      <tr><td>14+0–15+6</td><td>Más de 7 días</td></tr>
+      <tr><td>16+0–21+6</td><td>Más de 10 días</td></tr>
+      <tr><td>22+0–27+6</td><td>Más de 14 días</td></tr>
+      <tr><td>Desde 28+0</td><td>Más de 21 días; cautela especial</td></tr>
+    </table>
+    <p>Las guías difieren ante una discrepancia de siete días entre 11+0 y 13+6. No redatar automáticamente en el tercer trimestre: considerar alteración del crecimiento fetal.</p>
+  </section>
+
+  <section class="page" hidden>
+    <h2>5. Entrenador de decisiones clínicas</h2>
+    <p>Compara edades estimadas en una misma fecha. Los umbrales son referencias, no órdenes automáticas.</p>
+    <label>Datación previa confiable <select id="prior"><option>No</option><option>Sí</option></select></label>
+    <label>Reproducción asistida <select id="art"><option>No</option><option>Sí</option></select></label>
+    <label>FUM confiable <select id="reliable"><option>Sí</option><option>No</option><option>Desconocida</option></select></label>
+    <label>Calidad ecográfica <select id="quality"><option>Adecuada</option><option>Limitada</option></select></label>
+    <label>EG por FUM: semanas y días <input id="fw" type="number" min="0" max="45" value="11"> <input id="fd" type="number" min="0" max="6" value="0"></label>
+    <label>EG por ecografía: semanas y días <input id="sw" type="number" min="0" max="45" value="12"> <input id="sd" type="number" min="0" max="6" value="0"></label>
+    <button onclick="decision()">Analizar escenario</button>
+    <output id="decisionOut" aria-live="polite">Introduce los datos y analiza.</output>
+    <p>Documenta EG, FPP, método, fecha del estudio y justificación. Comunica a la paciente. Sin confirmación o revisión ecográfica antes de 22+0, considera datación subóptima.</p>
+  </section>
+
+  <section class="page" hidden>
+    <h2>6. Aplica tus conocimientos</h2>
+    <div id="quiz"></div>
+  </section>
+
+  <section class="page" hidden>
+    <h2>Ficha rápida y bibliografía</h2>
+    <p>FPP = FUM + 280 días. EG = semanas completas + días adicionales. FUM confiable: ciclos regulares, certeza de fecha y ausencia de influencia hormonal en los tres meses previos. No modificar rutinariamente una datación temprana confiable.</p>
+    <p>Ejemplo de registro: 19/11/2026. EG 13+3 por ecografía del 22/10/2026 (LCC 9+3). FUM no confiable por ciclos irregulares. FPP 24/05/2027.</p>
+    <p><a href="https://doi.org/10.1002/uog.26106">ISUOG. Ecografía de 11–14 semanas, 2023.</a></p>
+    <p><a href="https://doi.org/10.1097/AOG.0000000000002046">ACOG. Methods for Estimating the Due Date, 2017.</a></p>
+    <p>SOGC Guideline 388. Determination of Gestational Age by Ultrasound. 2019;41:1497–1507.</p>
+  </section>
+
+  <div>
+    <button id="back" onclick="go(page-1)">Anterior</button>
+    <button id="next" onclick="go(page+1)">Siguiente</button>
+  </div>
+  <footer><small>Obstetricia 360 · Prototipo docente · Uso educativo, no sustituye juicio clínico. No introducir datos identificables de pacientes.</small></footer>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const names = ['Inicio','1 · Tiempo','2 · Calcula','3 · FUM','4 · Ecografía','5 · Decide','6 · Casos','Ficha'];
+let page = 0;
+const seen = new Set();
+
+function go(n) {
+  page = n;
+  document.querySelectorAll('.page').forEach((e,i) => e.hidden = i !== n);
+  document.querySelectorAll('nav button').forEach((e,i) => e.classList.toggle('active', i === n));
+  if (n >= 1 && n <= 6) seen.add(n);
+  $('progress').value = seen.size;
+  $('status').textContent = seen.size + ' de 6 estaciones visitadas';
+  $('back').hidden = n === 0;
+  $('next').hidden = n === 7;
+  window.scrollTo(0,0);
+}
+
+names.forEach((s,i) => {
+  const b = document.createElement('button');
+  b.textContent = s;
+  b.onclick = () => go(i);
+  $('nav').append(b);
+});
+
+function age(w,d) {
+  const a = $(w), b = $(d);
+  return a.value !== '' && b.value !== '' && a.checkValidity() && b.checkValidity() &&
+    Number.isInteger(+a.value) && Number.isInteger(+b.value) ? +a.value * 7 + +b.value : NaN;
+}
+
+const fmt = n => Math.floor(n/7) + '+' + n%7;
+const tri = n => n < 98 ? 'Primer trimestre' : n < 196 ? 'Segundo trimestre' : 'Tercer trimestre';
+
+function timeline() {
+  const n = age('w','d');
+  $('timeOut').textContent = isNaN(n) ? 'Revisa semanas y días.' : fmt(n) + ' · ' + n + ' días · ' + tri(n);
+}
+
+const day = 86400000;
+function calc() {
+  const a = Date.parse($('base').value);
+  const b = Date.parse($('visit').value);
+  const e = $('mode').value === 'eco' ? age('ew','ed') : 0;
+  const n = (b-a)/day + e;
+  if (!Number.isFinite(n) || b < a) {
+    $('calcOut').textContent = 'Revisa las fechas y la edad del estudio.';
+    return;
+  }
+  const f = new Date(a + (280-e)*day);
+  $('calcOut').textContent = 'EG ' + fmt(n) + ' · ' + tri(n) + ' · FPP ' +
+    f.toLocaleDateString('es-CO',{timeZone:'UTC'}) +
+    (n > 294 ? ' · Atención: edad gestacional inusual.' : '');
+}
+
+async function copyResult() {
+  try {
+    await navigator.clipboard.writeText($('calcOut').textContent);
+    $('copyStatus').textContent = ' Copiado.';
+  } catch (e) {
+    $('copyStatus').textContent = ' Selecciona y copia el texto del resultado manualmente.';
+  }
+}
+
+['¿Recuerda con certeza la fecha?','¿Tenía ciclos regulares?','¿Sin influencia hormonal en los tres meses previos?'].forEach((q,i) => {
+  $('criteria').insertAdjacentHTML('beforeend', `<label>${q} <select id="c${i}" onchange="fum()"><option>No se sabe</option><option>Sí</option><option>No</option></select></label>`);
+});
+
+function fum() {
+  const a = [0,1,2].map(i => $('c'+i).value);
+  $('fumOut').textContent = a.includes('No') ? 'FUM no confiable: priorizar ecografía temprana de calidad.' :
+    a.includes('No se sabe') ? 'Completar anamnesis.' : 'FUM confiable según la guía; contrastar con ecografía.';
+}
+
+function decision() {
+  const a = age('fw','fd'), b = age('sw','sd');
+  const diff = Math.abs(a-b);
+  const t = a < 63 ? 5 : a < 112 ? 7 : a < 154 ? 10 : a < 196 ? 14 : 21;
+  let r;
+  if (!Number.isFinite(diff)) {
+    r = 'Revisa las edades.';
+  } else if ($('art').value === 'Sí') {
+    r = 'Usar datos del procedimiento de reproducción asistida.';
+  } else if ($('prior').value === 'Sí') {
+    r = 'Conservar datación previa confiable; si hay discordancia tardía, evaluar crecimiento.';
+  } else if ($('quality').value === 'Limitada' || a >= 154 || b >= 154) {
+    r = 'Valoración individualizada: revisar calidad y posible datación subóptima.';
+  } else if ($('reliable').value === 'No') {
+    r = 'Priorizar ecografía adecuada.';
+  } else if ($('reliable').value === 'Desconocida') {
+    r = 'Completar información sobre FUM.';
+  } else if (diff === 7 && b >= 77 && b < 98) {
+    r = 'Las guías difieren: valorar protocolo y calidad.';
+  } else {
+    r = 'Umbral ACOG: más de ' + t + ' días. ' +
+      (diff > t ? 'Discrepancia que apoya redatación.' : 'Discrepancia compatible con conservar FUM.');
+  }
+  $('decisionOut').textContent = (Number.isFinite(diff) ? 'Diferencia: ' + diff + ' días. ' : '') + r;
+}
+
+const cases = [
+  ['Paciente de 25 años, G1, EG 13+6. ¿En qué trimestre se encuentra?',
+    ['Primer trimestre','Segundo trimestre','Tercer trimestre'],0,
+    'El primer trimestre comprende hasta 13+6.'],
+  ['Paciente de 29 años, G2, ciclos irregulares y fecha exacta de FUM. ¿Es confiable según la guía?',
+    ['Sí, recuerda la fecha','No, presenta ciclos irregulares','Sí, si la prueba es positiva'],1,
+    'Recordar la fecha no basta; evaluar regularidad e influencia hormonal.'],
+  ['FUM confiable 11+0 y primera ecografía adecuada 11+3. ¿Qué opción es compatible con ACOG?',
+    ['Redatar obligatoriamente','Conservar FUM','Promediar ambas edades'],1,
+    'Tres días no superan el umbral de siete días.'],
+  ['FUM confiable 8+0 y primera ecografía adecuada 8+6. ¿Qué apoya ACOG?',
+    ['Conservar FUM','Promediar edades','Redatar por ecografía'],2,
+    'Seis días superan el umbral de cinco días.'],
+  ['Paciente de 28 años, G1, FUM no confiable. Dos ecografías separadas por 35 días: primera 7+0 con limitaciones técnicas documentadas de LCC; segunda 13+0 con LCC adecuada. ¿Cuál utilizarías?',
+    ['Primera ecografía','Segunda ecografía','Promedio de ambas'],1,
+    'Se esperaría 12+0 por la primera. La segunda reporta 13+0. Se prioriza por calidad, no por ser posterior.'],
+  ['Datación confiable del primer trimestre. EG actual 32 semanas; biometría de 29 semanas. ¿Conducta?',
+    ['Redatar a 29 semanas','Modificar FPP tres semanas','Conservar datación y evaluar crecimiento fetal'],2,
+    'Investigar alteración del crecimiento sin cambiar rutinariamente la datación.'],
+  ['Primera consulta a las 25 semanas sin ecografías previas. ¿Cómo clasificar la datación?',
+    ['Óptima si recuerda FUM','Subóptima','Imposible estimar EG'],1,
+    'No existe confirmación ecográfica antes de 22 semanas.'],
+  ['FUM incierta. Ecografía hace 28 días reportó 9+3 por LCC. ¿EG actual?',
+    ['9+3','13+0','13+3'],2,
+    'Han transcurrido cuatro semanas completas.']
+];
+
+let qi = 0, answers = [], selected = -1;
+function quiz() {
+  const el = $('quiz');
+  if (qi === cases.length) {
+    const score = answers.filter((a,i) => a === cases[i][2]).length;
+    el.innerHTML = `<h3>${score}/8 aciertos · ${score/8*100}%</h3><p>Meta formativa provisional: 7/8.</p>` +
+      cases.map((c,i) => answers[i] === c[2] ? '' :
+        `<p><b>Caso ${i+1}</b> · ${c[0]}<br>Respuesta: ${c[1][c[2]]}. ${c[3]}</p>`).join('') +
+      '<button onclick="qi=0;answers=[];selected=-1;quiz()">Repetir evaluación</button>';
+    return;
+  }
+  const c = cases[qi];
+  el.innerHTML = `<small>Caso ${qi+1} de 8</small><h3>${c[0]}</h3>` +
+    c[1].map((x,i) => `<button class="option ${selected===i?'chosen':''}" onclick="selected=${i};quiz()" ${answers.length>qi?'disabled':''}>${'ABC'[i]}. ${x}</button>`).join('') +
+    (answers.length > qi ?
+      `<div class="result">${answers[qi]===c[2]?'Correcto':'Revisa tu respuesta'} · ${c[3]}</div><button onclick="qi++;selected=-1;quiz()">${qi===7?'Ver resultado':'Siguiente caso'}</button>` :
+      `<button ${selected<0?'disabled':''} onclick="answers.push(selected);quiz()">Comprobar respuesta</button>`);
+}
+
+timeline();
+calc();
+fum();
+quiz();
+go(0);
+</script>
+</html>
