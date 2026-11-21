@@ -1509,12 +1509,11 @@ renderQuiz('risk');
 
 // FIN DEL BLOQUE 3A
   
-function calculateBMI(){
-  const weight = Number(document.getElementById('bmi-weight').value);
-  let height = Number(document.getElementById('bmi-height').value);
-  const result = document.getElementById('bmi-result');
 
-  if(height > 3) height = height / 100;
+function calculateBMI(){
+  const weight = Number(document.getElementById('weight').value);
+  const height = Number(document.getElementById('height').value) / 100;
+  const result = document.getElementById('bmi-result');
 
   result.classList.remove('hidden');
 
@@ -1533,15 +1532,22 @@ function calculateBMI(){
   else if(bmi < 40) category = 'Obesidad grado II';
   else category = 'Obesidad grado III';
 
-  result.innerHTML = '<strong>IMC: ' +
-    bmi.toFixed(1) + ' kg/m²</strong><p>' +
-    category + '</p>';
+  result.innerHTML =
+    '<strong>IMC: ' + bmi.toFixed(1) + ' kg/m²</strong>' +
+    '<p>' + category + '</p>';
 }
 
-function calculatePAM(){
-  const systolic = Number(document.getElementById('pam-systolic').value);
-  const diastolic = Number(document.getElementById('pam-diastolic').value);
-  const result = document.getElementById('pam-result');
+function resetBMI(){
+  document.getElementById('weight').value = 82;
+  document.getElementById('height').value = 162;
+  document.getElementById('bmi-result').classList.add('hidden');
+}
+
+
+function calculateMAP(){
+  const systolic = Number(document.getElementById('systolic').value);
+  const diastolic = Number(document.getElementById('diastolic').value);
+  const result = document.getElementById('map-result');
 
   result.classList.remove('hidden');
 
@@ -1552,9 +1558,15 @@ function calculatePAM(){
 
   const pam = (systolic + 2 * diastolic) / 3;
 
-  result.innerHTML = '<strong>PAM: ' +
-    pam.toFixed(1) + ' mmHg</strong>' +
-    '<p>La presión arterial media aporta información para la evaluación del riesgo de preeclampsia. Su interpretación debe integrarse con los antecedentes y otros marcadores.</p>';
+  result.innerHTML =
+    '<strong>PAM: ' + pam.toFixed(1) + ' mmHg</strong>' +
+    '<p>La presión arterial media aporta información para la evaluación del riesgo de preeclampsia. Debe interpretarse junto con los antecedentes y otros marcadores de riesgo.</p>';
+}
+
+function resetMAP(){
+  document.getElementById('systolic').value = 118;
+  document.getElementById('diastolic').value = 76;
+  document.getElementById('map-result').classList.add('hidden');
 }
 
 const herreraFactors = {
