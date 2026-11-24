@@ -1,0 +1,1239 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Enfermedad de Chagas en el embarazo | Obstetricia 360</title>
+
+<style>
+:root {
+  --primary: #145C63;
+  --secondary: #287D82;
+  --background: #F4F7F9;
+  --text: #243746;
+  --border: #DCE5E9;
+  --success: #176B45;
+  --warning: #956414;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+header {
+  background: linear-gradient(135deg, #145C63, #287D82);
+  color: white;
+  padding: 36px 22px;
+}
+
+.header-content {
+  max-width: 950px;
+  margin: auto;
+}
+
+.brand {
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: clamp(26px, 5vw, 36px);
+  line-height: 1.25;
+  margin: 14px 0;
+}
+
+header p {
+  margin-bottom: 0;
+  opacity: .95;
+}
+
+main {
+  max-width: 950px;
+  margin: auto;
+  padding: 24px 16px;
+}
+
+.section {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  margin-bottom: 22px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.035);
+}
+
+h2 {
+  color: var(--primary);
+  font-size: 23px;
+  line-height: 1.35;
+  margin-top: 0;
+}
+
+h3 {
+  color: var(--primary);
+  font-size: 19px;
+}
+
+li {
+  margin-bottom: 7px;
+}
+
+.notice {
+  background: #EAF5F4;
+  border-left: 4px solid var(--secondary);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 18px 0;
+}
+
+.warning {
+  background: #FFF6E5;
+  border-left: 4px solid #C58A29;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 18px 0;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--primary);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #F6F9FA;
+}
+
+.flow {
+  max-width: 720px;
+  margin: 24px auto;
+  text-align: center;
+}
+
+.flow-box {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #F0F7F7;
+}
+
+.arrow {
+  font-size: 26px;
+  color: var(--primary);
+  padding: 5px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.negative {
+  background: #EAF6EE;
+  border-color: #BBDCC7;
+}
+
+.positive {
+  background: #FCECE9;
+  border-color: #EAC2BB;
+}
+
+.discordant {
+  background: #FFF5DF;
+  border-color: #EAD3A1;
+}
+
+.case {
+  background: #F8FAFB;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.case h3 {
+  margin-top: 0;
+}
+
+.case-label {
+  color: var(--secondary);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: white;
+  color: var(--text);
+  border: 1px solid #CCD9DE;
+  border-radius: 9px;
+  padding: 14px;
+  margin: 10px 0;
+  font-size: 15px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: var(--secondary);
+  background: #EDF6F6;
+}
+
+.option:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #287D82;
+  outline-offset: 3px;
+}
+
+.option.correct {
+  background: #E6F5EB;
+  border-color: #41976A;
+  color: #176B45;
+}
+
+.option.incorrect {
+  background: #FFF0ED;
+  border-color: #D88A7E;
+  color: #A13E32;
+}
+
+.feedback {
+  display: none;
+  margin-top: 15px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.feedback.good {
+  display: block;
+  background: #E6F5EB;
+  color: #176B45;
+}
+
+.feedback.bad {
+  display: block;
+  background: #FFF5DF;
+  color: #805B16;
+}
+
+.progress-container {
+  height: 10px;
+  background: #E1E9ED;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: var(--secondary);
+  transition: width .3s;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #536A76;
+}
+
+.score {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  background: #EAF5F4;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.score-number {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--secondary);
+}
+
+a {
+  color: var(--primary);
+  overflow-wrap: anywhere;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: #647783;
+  font-size: 13px;
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 18px;
+  }
+
+  .case {
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  h2 {
+    font-size: 21px;
+  }
+
+  th, td {
+    padding: 9px;
+    font-size: 14px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="brand">OBSTETRICIA 360</div>
+
+    <h1>01.5.6 — Enfermedad de Chagas en el embarazo</h1>
+
+    <p>
+      Consulta prenatal · Tamizaje infeccioso ·
+      Interpretación de pruebas diagnósticas
+    </p>
+  </div>
+</header>
+
+<main>
+
+<section class="section">
+
+  <h2>01 · Objetivos de aprendizaje</h2>
+
+  <p>Al finalizar este módulo, estarás en capacidad de:</p>
+
+  <ul>
+    <li>
+      Identificar las gestantes con factores de riesgo
+      para enfermedad de Chagas.
+    </li>
+
+    <li>
+      Reconocer la importancia del tamizaje prenatal.
+    </li>
+
+    <li>
+      Interpretar las pruebas serológicas para
+      <em>Trypanosoma cruzi</em>.
+    </li>
+
+    <li>
+      Establecer la conducta ante resultados positivos
+      o discordantes.
+    </li>
+
+    <li>
+      Reconocer las limitaciones del tratamiento
+      antiparasitario durante el embarazo.
+    </li>
+
+    <li>
+      Comprender la importancia de prevenir y detectar
+      la transmisión congénita.
+    </li>
+  </ul>
+
+</section>
+
+<section class="section">
+
+  <h2>02 · Fundamentos clínicos</h2>
+
+  <p>
+    La enfermedad de Chagas es una infección parasitaria
+    causada por <em>Trypanosoma cruzi</em>. Es endémica
+    en Colombia y en otros países de América Latina.
+  </p>
+
+  <p>Puede adquirirse por diferentes mecanismos:</p>
+
+  <ul>
+    <li>
+      Transmisión vectorial por insectos triatominos,
+      conocidos en Colombia como «pitos».
+    </li>
+
+    <li>Consumo de alimentos contaminados.</li>
+
+    <li>Transmisión transplacentaria.</li>
+
+    <li>Transfusiones sanguíneas.</li>
+
+    <li>Trasplante de órganos.</li>
+  </ul>
+
+  <p>
+    Muchas mujeres con infección crónica permanecen
+    asintomáticas durante años, por lo que la ausencia
+    de síntomas no descarta la enfermedad.
+  </p>
+
+  <div class="notice">
+    <strong>Clave clínica:</strong>
+    la transmisión transplacentaria puede ocurrir tanto
+    en la fase aguda como en la fase crónica de la
+    infección materna.
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2>03 · ¿A quién realizar el tamizaje?</h2>
+
+  <p>
+    En Colombia, la Resolución 3280 de 2018 establece
+    el tamizaje prenatal de acuerdo con el riesgo
+    epidemiológico.
+  </p>
+
+  <p>
+    Durante la primera consulta prenatal se deben
+    investigar los siguientes antecedentes, incluso
+    si ocurrieron durante la infancia:
+  </p>
+
+  <ul>
+    <li>
+      Haber nacido o vivido en regiones endémicas.
+    </li>
+
+    <li>
+      Reconocer el vector transmisor o haber tenido
+      contacto con este.
+    </li>
+
+    <li>
+      Haber habitado viviendas con pisos de tierra,
+      techos de palma o paredes de bahareque,
+      especialmente en zonas endémicas.
+    </li>
+
+    <li>
+      Tener familiares diagnosticados con enfermedad
+      de Chagas, particularmente la madre.
+    </li>
+
+    <li>
+      Haber recibido transfusiones sanguíneas,
+      especialmente antes de 1995 en Colombia.
+    </li>
+  </ul>
+
+  <div class="notice">
+    <strong>Clave clínica:</strong>
+    el riesgo epidemiológico no depende exclusivamente
+    del lugar de residencia actual de la gestante.
+  </div>
+
+  <p>
+    Una paciente que actualmente reside en Cali,
+    pero que vivió durante su infancia en una zona
+    endémica de Santander, puede tener indicación
+    de tamizaje.
+  </p>
+
+</section>
+
+<section class="section">
+
+  <h2>04 · Interpretación de las pruebas diagnósticas</h2>
+
+  <p>
+    Para confirmar la infección crónica por
+    <em>Trypanosoma cruzi</em> se requieren dos pruebas
+    serológicas positivas realizadas con metodologías
+    o preparaciones antigénicas diferentes.
+  </p>
+
+  <div class="table-container">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Prueba</th>
+          <th>Utilidad</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>ELISA de antígenos totales o crudos</td>
+          <td>Prueba inicial de alta sensibilidad.</td>
+        </tr>
+
+        <tr>
+          <td>ELISA de antígenos recombinantes</td>
+          <td>Segunda prueba serológica de confirmación.</td>
+        </tr>
+
+        <tr>
+          <td>
+            Inmunofluorescencia indirecta (IFI)
+            u otra técnica serológica validada
+          </td>
+          <td>
+            Resolución de resultados discordantes,
+            según el algoritmo del laboratorio.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <h3>Algoritmo diagnóstico serológico convencional</h3>
+
+  <div class="flow">
+
+    <div class="flow-box">
+      <strong>Gestante con riesgo epidemiológico</strong>
+      <br>
+      Primera consulta prenatal
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <div class="flow-box">
+      <strong>ELISA de antígenos totales</strong>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <div class="grid">
+
+      <div class="flow-box negative">
+        <strong>Negativo</strong>
+        <p>
+          Tamizaje negativo en el contexto
+          de infección crónica.
+        </p>
+      </div>
+
+      <div class="flow-box">
+        <strong>Positivo o indeterminado</strong>
+        <p>
+          Continuar el algoritmo diagnóstico
+          con una segunda prueba serológica.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <div class="flow-box">
+      <strong>
+        ELISA de antígenos recombinantes
+      </strong>
+    </div>
+
+    <div class="arrow">↓</div>
+
+    <div class="grid">
+
+      <div class="flow-box positive">
+        <strong>Ambas pruebas positivas</strong>
+        <p>Infección confirmada.</p>
+      </div>
+
+      <div class="flow-box discordant">
+        <strong>Resultados discordantes</strong>
+        <p>
+          Realizar una tercera prueba serológica
+          según el algoritmo del laboratorio.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="notice">
+    <strong>Clave clínica:</strong>
+    una única prueba positiva no es suficiente para
+    establecer el diagnóstico de enfermedad de
+    Chagas crónica.
+  </div>
+
+  <p>
+    Los resultados persistentemente indeterminados
+    requieren evaluación adicional por el laboratorio
+    de referencia.
+  </p>
+
+  <p>
+    Este algoritmo corresponde al diagnóstico de la
+    infección crónica. Ante sospecha de infección aguda,
+    se requieren métodos diagnósticos diferentes y
+    valoración especializada.
+  </p>
+
+</section>
+
+<section class="section">
+
+  <h2>05 · Conducta ante una gestante con diagnóstico confirmado</h2>
+
+  <p>
+    Una vez confirmada la infección materna, se debe
+    realizar una evaluación clínica dirigida a identificar
+    posibles manifestaciones de compromiso orgánico.
+  </p>
+
+  <p>La valoración inicial incluye:</p>
+
+  <ul>
+    <li>
+      Interrogatorio sobre palpitaciones, síncope,
+      disnea y síntomas digestivos.
+    </li>
+
+    <li>Examen físico completo.</li>
+
+    <li>Electrocardiograma de 12 derivaciones.</li>
+
+    <li>Remisión para valoración especializada.</li>
+
+    <li>
+      Notificación a SIVIGILA según la definición
+      de caso y el protocolo nacional vigente.
+    </li>
+
+    <li>
+      Garantizar el estudio del recién nacido
+      y de los hijos previos.
+    </li>
+  </ul>
+
+  <div class="notice">
+    La ausencia de síntomas no excluye el compromiso
+    cardíaco.
+  </div>
+
+  <h3>¿Se debe iniciar tratamiento durante el embarazo?</h3>
+
+  <p>
+    Los medicamentos utilizados para el tratamiento
+    etiológico de la enfermedad de Chagas son:
+  </p>
+
+  <ul>
+    <li>Benznidazol.</li>
+    <li>Nifurtimox.</li>
+  </ul>
+
+  <div class="warning">
+    <strong>
+      En la infección crónica no se debe iniciar
+      tratamiento antiparasitario durante el embarazo.
+    </strong>
+  </div>
+
+  <p>
+    El tratamiento materno debe planificarse después
+    de la gestación, teniendo en cuenta la lactancia
+    y las recomendaciones del equipo tratante.
+  </p>
+
+  <p>
+    En situaciones excepcionales de enfermedad aguda
+    durante el embarazo, el tratamiento puede ser
+    considerado por un equipo interdisciplinario,
+    tras valorar los riesgos y beneficios.
+  </p>
+
+  <p>
+    El tratamiento de las mujeres infectadas antes
+    de una futura gestación reduce el riesgo de
+    transmisión congénita.
+  </p>
+
+  <h3>
+    ¿Por qué realizar el tamizaje si no podemos
+    tratar durante el embarazo?
+  </h3>
+
+  <p>El diagnóstico prenatal permite:</p>
+
+  <ul>
+    <li>
+      Identificar a las gestantes que requieren
+      evaluación materna.
+    </li>
+
+    <li>
+      Garantizar el estudio oportuno del recién nacido.
+    </li>
+
+    <li>
+      Identificar otros hijos potencialmente infectados.
+    </li>
+
+    <li>
+      Planificar el tratamiento materno después
+      del embarazo.
+    </li>
+  </ul>
+
+  <p>
+    El tratamiento temprano de la infección congénita
+    tiene una elevada probabilidad de curación.
+  </p>
+
+</section>
+
+<section class="section">
+
+  <h2>06 · Escenarios clínicos interactivos</h2>
+
+  <p>
+    Lee cada escenario y selecciona la conducta
+    que consideres más adecuada.
+  </p>
+
+  <div class="progress-text" id="progressText">
+    0 de 4 casos respondidos
+  </div>
+
+  <div class="progress-container"
+       role="progressbar"
+       aria-label="Progreso de casos clínicos"
+       aria-valuemin="0"
+       aria-valuemax="4"
+       aria-valuenow="0"
+       id="progressContainer">
+
+    <div class="progress-bar" id="progressBar"></div>
+
+  </div>
+
+  <!-- CASO 1 -->
+
+  <div class="case" id="case1">
+
+    <div class="case-label">CASO CLÍNICO 01</div>
+
+    <h3>Identificación del riesgo epidemiológico</h3>
+
+    <p>
+      Gestante de 24 años, con 10 semanas de embarazo.
+      Reside actualmente en Cali. Durante su infancia
+      vivió en una vivienda de bahareque en una zona
+      rural endémica de Santander.
+      Actualmente está asintomática.
+    </p>
+
+    <p><strong>¿Cuál es la conducta adecuada?</strong></p>
+
+    <button type="button" class="option"
+      onclick="answer(1,0,this)">
+      A. No solicitar tamizaje porque reside en Cali.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(1,1,this)">
+      B. Solicitar ELISA para enfermedad de Chagas.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(1,2,this)">
+      C. Solicitar la prueba únicamente si presenta
+      síntomas cardíacos.
+    </button>
+
+    <div class="feedback" id="feedback1"
+         aria-live="polite"></div>
+
+  </div>
+
+  <!-- CASO 2 -->
+
+  <div class="case" id="case2">
+
+    <div class="case-label">CASO CLÍNICO 02</div>
+
+    <h3>Primera prueba positiva</h3>
+
+    <p>
+      Gestante de 28 años, con 12 semanas de embarazo.
+      El resultado del ELISA de antígenos totales
+      para <em>T. cruzi</em> es positivo.
+    </p>
+
+    <p><strong>¿Cuál es el siguiente paso?</strong></p>
+
+    <button type="button" class="option"
+      onclick="answer(2,0,this)">
+      A. Iniciar benznidazol.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(2,1,this)">
+      B. Confirmar el diagnóstico con el resultado
+      disponible.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(2,2,this)">
+      C. Solicitar ELISA de antígenos recombinantes.
+    </button>
+
+    <div class="feedback" id="feedback2"
+         aria-live="polite"></div>
+
+  </div>
+
+  <!-- CASO 3 -->
+
+  <div class="case" id="case3">
+
+    <div class="case-label">CASO CLÍNICO 03</div>
+
+    <h3>Resultados discordantes</h3>
+
+    <p>
+      Gestante de 30 años con los siguientes resultados:
+    </p>
+
+    <ul>
+      <li>
+        ELISA de antígenos totales:
+        <strong>positivo.</strong>
+      </li>
+
+      <li>
+        ELISA de antígenos recombinantes:
+        <strong>negativo.</strong>
+      </li>
+    </ul>
+
+    <p><strong>¿Cómo debe proceder?</strong></p>
+
+    <button type="button" class="option"
+      onclick="answer(3,0,this)">
+      A. Solicitar una tercera prueba serológica,
+      como inmunofluorescencia indirecta,
+      según el algoritmo diagnóstico.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(3,1,this)">
+      B. Descartar definitivamente la infección.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(3,2,this)">
+      C. Confirmar la infección con la primera prueba.
+    </button>
+
+    <div class="feedback" id="feedback3"
+         aria-live="polite"></div>
+
+  </div>
+
+  <!-- CASO 4 -->
+
+  <div class="case" id="case4">
+
+    <div class="case-label">CASO CLÍNICO 04</div>
+
+    <h3>Infección confirmada</h3>
+
+    <p>
+      Gestante de 26 años, con 14 semanas de embarazo.
+      Ambas pruebas de ELISA son positivas.
+      Está asintomática y no presenta antecedentes
+      de enfermedad cardíaca.
+    </p>
+
+    <p>
+      <strong>¿Cuál es la conducta más adecuada?</strong>
+    </p>
+
+    <button type="button" class="option"
+      onclick="answer(4,0,this)">
+      A. Iniciar benznidazol inmediatamente.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(4,1,this)">
+      B. Realizar evaluación clínica, electrocardiograma,
+      remisión, notificación según protocolo y planificar
+      el estudio del recién nacido.
+    </button>
+
+    <button type="button" class="option"
+      onclick="answer(4,2,this)">
+      C. No realizar ninguna intervención hasta
+      finalizar el embarazo.
+    </button>
+
+    <div class="feedback" id="feedback4"
+         aria-live="polite"></div>
+
+  </div>
+
+  <div class="score" id="score" aria-live="polite">
+
+    <div class="score-number" id="scoreNumber"></div>
+
+    <p id="scoreMessage"></p>
+
+  </div>
+
+  <button type="button" class="btn" onclick="resetCases()">
+    Reiniciar casos clínicos
+  </button>
+
+</section>
+
+<section class="section">
+
+  <h2>07 · Lo esencial para recordar</h2>
+
+  <ul>
+    <li>
+      El tamizaje se realiza de acuerdo con los
+      antecedentes epidemiológicos.
+    </li>
+
+    <li>
+      Una gestante asintomática puede tener
+      enfermedad de Chagas.
+    </li>
+
+    <li>
+      El diagnóstico de infección crónica requiere
+      dos pruebas serológicas diferentes positivas.
+    </li>
+
+    <li>
+      Los resultados discordantes requieren una
+      tercera prueba.
+    </li>
+
+    <li>
+      No se inicia tratamiento antiparasitario
+      durante el embarazo en pacientes con
+      infección crónica.
+    </li>
+
+    <li>
+      Toda infección materna confirmada requiere
+      evaluación clínica y seguimiento.
+    </li>
+
+    <li>
+      Se debe garantizar el estudio del recién
+      nacido y de los hijos previos.
+    </li>
+  </ul>
+
+</section>
+
+<section class="section">
+
+  <h2>08 · Bibliografía</h2>
+
+  <ol>
+
+    <li>
+      Ministerio de Salud y Protección Social.
+      <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resoluci%C3%B3n%20No.%203280%20de%2020183280.pdf"
+         target="_blank" rel="noopener noreferrer">
+        Resolución 3280 de 2018.
+      </a>
+    </li>
+
+    <li>
+      Ministerio de Salud y Protección Social.
+      Lineamiento técnico de la estrategia de
+      eliminación de la transmisión maternoinfantil
+      de VIH, sífilis, hepatitis B y enfermedad
+      de Chagas (ETMI Plus), Colombia 2021–2030.
+      <a href="https://www.minsalud.gov.co/"
+         target="_blank" rel="noopener noreferrer">
+        Ministerio de Salud.
+      </a>
+    </li>
+
+    <li>
+      Instituto Nacional de Salud de Colombia.
+      Protocolo de vigilancia en salud pública
+      de enfermedad de Chagas.
+      <a href="https://www.ins.gov.co/"
+         target="_blank" rel="noopener noreferrer">
+        Instituto Nacional de Salud.
+      </a>
+    </li>
+
+    <li>
+      Organización Panamericana de la Salud.
+      Guía para el diagnóstico y el tratamiento
+      de la enfermedad de Chagas. 2019.
+      <a href="https://iris.paho.org/handle/10665.2/49653"
+         target="_blank" rel="noopener noreferrer">
+        Consultar guía.
+      </a>
+    </li>
+
+    <li>
+      Organización Mundial de la Salud.
+      <a href="https://www.who.int/es/news-room/fact-sheets/detail/chagas-disease-(american-trypanosomiasis)"
+         target="_blank" rel="noopener noreferrer">
+        Enfermedad de Chagas
+        (tripanosomiasis americana).
+      </a>
+    </li>
+
+  </ol>
+
+</section>
+
+<a class="btn" href="../index.html">
+  ← Volver a Obstetricia 360
+</a>
+
+</main>
+
+<footer>
+  Obstetricia 360 · Recurso educativo para estudiantes
+  de medicina · Consulta prenatal
+</footer>
+
+<script>
+
+const cases = {
+
+  1: {
+    correct: 1,
+
+    feedback:
+      "El antecedente de residencia durante la infancia " +
+      "en una región endémica justifica el tamizaje, " +
+      "independientemente del domicilio actual y de " +
+      "la ausencia de síntomas."
+  },
+
+  2: {
+    correct: 2,
+
+    feedback:
+      "Una prueba reactiva de tamizaje requiere " +
+      "confirmación mediante una segunda prueba " +
+      "serológica con una preparación antigénica " +
+      "diferente. Una sola prueba positiva no " +
+      "confirma la infección crónica."
+  },
+
+  3: {
+    correct: 0,
+
+    feedback:
+      "La discordancia entre las dos pruebas requiere " +
+      "una tercera técnica serológica para aclarar " +
+      "el diagnóstico. No es correcto confirmar ni " +
+      "descartar la infección basándose únicamente " +
+      "en uno de los resultados."
+  },
+
+  4: {
+    correct: 1,
+
+    feedback:
+      "La infección crónica no se trata con " +
+      "antiparasitarios durante la gestación, pero " +
+      "sí requiere evaluación materna, electrocardiograma, " +
+      "remisión, notificación según protocolo y " +
+      "planificación del estudio de los hijos."
+  }
+
+};
+
+let answers = {};
+
+function answer(caseNumber, selected, button) {
+
+  const currentCase = cases[caseNumber];
+
+  const caseElement =
+    document.getElementById("case" + caseNumber);
+
+  const options =
+    caseElement.querySelectorAll(".option");
+
+  const feedback =
+    document.getElementById("feedback" + caseNumber);
+
+  options.forEach(option => {
+    option.classList.remove("correct", "incorrect");
+    option.setAttribute("aria-pressed", "false");
+  });
+
+  button.setAttribute("aria-pressed", "true");
+
+  const isCorrect = selected === currentCase.correct;
+
+  answers[caseNumber] = isCorrect;
+
+  if (isCorrect) {
+
+    button.classList.add("correct");
+
+    feedback.className = "feedback good";
+
+    feedback.innerHTML =
+      "<strong>✓ Respuesta correcta.</strong><br>" +
+      currentCase.feedback;
+
+  } else {
+
+    button.classList.add("incorrect");
+
+    options[currentCase.correct].classList.add("correct");
+
+    feedback.className = "feedback bad";
+
+    feedback.innerHTML =
+      "<strong>Revisa tu decisión.</strong><br>" +
+      currentCase.feedback;
+
+  }
+
+  updateProgress();
+
+}
+
+function updateProgress() {
+
+  const total = Object.keys(cases).length;
+
+  const completed = Object.keys(answers).length;
+
+  const correct =
+    Object.values(answers).filter(value => value).length;
+
+  document.getElementById("progressText").textContent =
+    completed + " de " + total + " casos respondidos";
+
+  document.getElementById("progressBar").style.width =
+    (completed / total * 100) + "%";
+
+  document.getElementById("progressContainer")
+    .setAttribute("aria-valuenow", completed);
+
+  const score = document.getElementById("score");
+
+  if (completed === total) {
+
+    score.style.display = "block";
+
+    document.getElementById("scoreNumber").textContent =
+      correct + " / " + total;
+
+    document.getElementById("scoreMessage").textContent =
+      correct === total
+      ? "Excelente. Has identificado correctamente " +
+        "las conductas clínicas de los cuatro escenarios."
+      : "Revisa la retroalimentación de los casos " +
+        "y refuerza los conceptos antes de continuar.";
+
+  } else {
+
+    score.style.display = "none";
+
+  }
+
+}
+
+function resetCases() {
+
+  answers = {};
+
+  document.querySelectorAll(".option").forEach(option => {
+
+    option.classList.remove("correct", "incorrect");
+
+    option.setAttribute("aria-pressed", "false");
+
+  });
+
+  document.querySelectorAll(".feedback").forEach(feedback => {
+
+    feedback.className = "feedback";
+
+    feedback.innerHTML = "";
+
+  });
+
+  updateProgress();
+
+  document.getElementById("case1").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+}
+
+</script>
+
+</body>
+</html>
